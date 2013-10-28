@@ -12,11 +12,11 @@ import javax.swing.JMenuItem;
 public class EcranJeu extends JFrame {
 
 	private JMenuBar topMenu;
-	
+	private Plateau plateauJeu;
 	public EcranJeu()
 	{
 		super();
-		
+		plateauJeu = new Plateau();
 		topMenu = new JMenuBar();
 		
 		JMenu fichier = new JMenu("Fichier");
@@ -55,6 +55,9 @@ public class EcranJeu extends JFrame {
 		
 		this.setJMenuBar(topMenu);
 		this.setTitle("Titanic");
+		plateauJeu.setVisible(true);
+		plateauJeu.setSize(400,400);
+		this.add(plateauJeu);
 	}
 	
 }
