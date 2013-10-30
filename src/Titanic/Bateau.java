@@ -10,7 +10,7 @@ public class Bateau extends Flottant {
 	public void afficher(Graphics g, String mess)
 	{
 		Graphics2D g2d = (Graphics2D)g;
-		remplirTriangle(g,1,2,4,4);
+		remplirTriangle(g,100,200,40,40);
 		
 	}
 	

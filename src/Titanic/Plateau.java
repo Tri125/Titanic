@@ -1,5 +1,6 @@
 package Titanic;
 
+import javax.print.attribute.standard.PDLOverrideSupported;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,13 +15,13 @@ import java.awt.GridLayout;
 public class Plateau  extends JPanel{
 
 	private GridLayout grille;
-	
+	Bateau pd= new Bateau('c',this,0,0,Direction.BAS);
 	public Plateau()
 	{
 		grille = new GridLayout(6,6);
 		JPanel jdJPanel = new JPanel(grille);
 		this.setBorder(BorderFactory.createLineBorder(Color.orange, 4));
-		//jdJPanel.add(new Bateau('c',this,0,0,Direction.BAS));
+
 		this.add(new JLabel("idk"));
 	}
 	
@@ -32,5 +33,7 @@ public class Plateau  extends JPanel{
         Graphics2D g2d = (Graphics2D)g;
         //g2d.rotate(Math.PI/4,40,80); // tourner de 45 deg autour de 40,80
         g2d.drawString("Bonjour les amis",40,80);
+        pd.afficher(g,"");
+        
     }
 }
