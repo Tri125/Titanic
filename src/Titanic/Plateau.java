@@ -4,6 +4,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Titanic.Bateau.Direction;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,6 +20,7 @@ public class Plateau  extends JPanel{
 		grille = new GridLayout(6,6);
 		JPanel jdJPanel = new JPanel(grille);
 		this.setBorder(BorderFactory.createLineBorder(Color.orange, 4));
+		//jdJPanel.add(new Bateau('c',this,0,0,Direction.BAS));
 		this.add(new JLabel("idk"));
 	}
 	
