@@ -9,6 +9,7 @@ public class Main {
 		EcranJeu ecranTitanic = new EcranJeu();
 		ecranTitanic.setSize(450,500);
 		ecranTitanic.setVisible(true);
+		ecranTitanic.setResizable(false);
 		ecranTitanic.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 

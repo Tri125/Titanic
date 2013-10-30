@@ -1,13 +1,14 @@
 package Titanic;
 
-import javax.print.attribute.standard.PDLOverrideSupported;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
 
 import Titanic.Bateau.Direction;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -18,8 +19,8 @@ public class Plateau  extends JPanel{
 	Bateau pd= new Bateau('c',this,0,0,Direction.BAS);
 	public Plateau()
 	{
-		grille = new GridLayout(6,6);
-		JPanel jdJPanel = new JPanel(grille);
+		JPanel panneau = new JPanel(new GridLayout(6,6));
+		panneau.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
 		this.setBorder(BorderFactory.createLineBorder(Color.orange, 4));
 
 		this.add(new JLabel("idk"));
