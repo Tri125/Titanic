@@ -8,7 +8,7 @@ public class ImporteurGrille
 {
 	private String cheminFichier = null;
 	private BufferedReader in = null;
-	
+	private final int HAUTEUR_GRILLE = 6;
 	
 	public ImporteurGrille()
 	{
@@ -20,19 +20,19 @@ public class ImporteurGrille
 	}
 	
 	
-	public char[][] Chargement(String chemin) throws IOException
+	public void Chargement(String chemin) throws IOException
 	{
-		char sup[][] = new char [5][5];
 		try 
 		{
 			String ligne;
 			int nbrLigne = 0;
 			in = new BufferedReader(new FileReader(chemin));
-			while ((ligne = in.readLine()) != null)
+			while ( (ligne = in.readLine()) != null)
 			{
 				for (int i = 0; i < ligne.length(); i++)
 				{
-					sup[nbrLigne][i] = ligne.charAt(i);
+					if (ligne.charAt(i) == '-')
+						continue;
 				}
 				nbrLigne++;
 			}
@@ -46,7 +46,6 @@ public class ImporteurGrille
 		{
 			in.close();
 		}
-		return sup;
 	}
 
 }
