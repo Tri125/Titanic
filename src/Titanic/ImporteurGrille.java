@@ -12,39 +12,18 @@ public class ImporteurGrille
 {
 	private String cheminFichier = null;
 	private BufferedReader in = null;
-	private final int HAUTEUR_GRILLE = 6;
+	private final int DIMENSION_GRILLE;
 	
-	public ImporteurGrille()
+	public ImporteurGrille(int dimension)
 	{
-	}
-	
-	private List<Flottant> CreateurFlottant(char[][] tab)
-	{
-		List<Flottant> flottans = new ArrayList<Flottant>();
-		
-		for (int i = 0; i < tab.length; i++)
-		{
-			
-		}
-		
-		return null;
+		DIMENSION_GRILLE = dimension;
 	}
 	
 	
-	public void InitialisationJeu(String chemin)
-	{
-		try {
-			CreateurFlottant(Chargement(chemin));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
-	
-	private char[][] Chargement(String chemin) throws IOException
+	public char[][] Chargement(String chemin)
 	{
-		char sup[][] = new char [HAUTEUR_GRILLE][HAUTEUR_GRILLE];
+		char sup[][] = new char [DIMENSION_GRILLE][DIMENSION_GRILLE];
 		try 
 		{
 			String ligne;
@@ -65,23 +44,20 @@ public class ImporteurGrille
 					{
 						sup[nbrLigne][i] = ligneTraite.charAt(i);
 					}
-					if(++nbrLigne >= HAUTEUR_GRILLE)
+					if(++nbrLigne >= DIMENSION_GRILLE)
 					{
 						break;
 					}
 				}
 				
 			}
-			System.out.println("t");
+			in.close();
 		}
 		
 		catch (IOException e)
 		{
 			e.printStackTrace();
-		}
-		finally
-		{
-			in.close();
+			sup = null;
 		}
 		return sup;
 	}

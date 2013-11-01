@@ -13,10 +13,16 @@ public class EcranJeu extends JFrame {
 
 	private JMenuBar topMenu;
 	private Plateau plateauJeu;
+	private ImporteurGrille importeurGrille;
+	private final String CHEMIN_FICHIER_GRILLE = "ConfigsPetits.txt";
+	private char[][] tabJeu;
+	
 	public EcranJeu()
 	{
 		super();
-		plateauJeu = new Plateau(6,6);
+		importeurGrille = new ImporteurGrille(6);
+		tabJeu = importeurGrille.Chargement(CHEMIN_FICHIER_GRILLE);
+		plateauJeu = new Plateau(6,6, tabJeu);
 		topMenu = new JMenuBar();
 		
 		JMenu fichier = new JMenu("Fichier");

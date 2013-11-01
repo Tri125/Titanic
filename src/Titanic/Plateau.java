@@ -16,16 +16,7 @@ public class Plateau extends JPanel{
 	protected List<Bateau> bateaux;
 	protected List<Naufrage> naufrages;
 	
-	/*Tableau temporaire avant lecture fichier*/
-	private char[] col0 = {'a','-','-','-','-','-'};
-	private char[] col1 = {'-','b','-','-','-','-'};
-	private char[] col2 = {'-','-','5','-','-','-'};
-	private char[] col3 = {'-','-','-','-','-','-'};
-	private char[] col4 = {'-','-','-','-','-','-'};
-	private char[] col5 = {'-','-','-','-','-','1'};
-	private char[][] tab = {col0,col1,col2,col3,col4,col5};
-	
-	Plateau(int x, int y){
+	Plateau(int x, int y, char[][] tabJeu){
 		this.dimX = x;
 		this.dimY = y;
 		this.setLayout(new GridLayout(dimX,dimY));
@@ -33,15 +24,20 @@ public class Plateau extends JPanel{
 		this.setBackground(Color.CYAN);
 			
 		/*Assignation des cases et des éléments liés*/
-		for(int j = 0; j<dimX ;j++){
-			for(int i =0; i< dimY; i++){
-				if(Character.isLetter(tab[i][j]))
-					this.add(new Case(this,i,j,new Naufrage('a',this,i,j)));
-				else {
-					if(Character.isDigit(tab[i][j])){
-						this.add(new Case(this,i,j,new Bateau('a',this,i,j,Direction.BAS)));
-					}else
-						this.add(new Case(i,j));
+		for(int j = 0; j<dimX ;j++)
+		{
+			for(int i =0; i< dimY; i++)
+			{
+				if(Character.isLetter(tabJeu[j][i]))
+					this.add(new Case(this,j,i,new Naufrage('a',this,j,i)));
+				else 
+				{
+					if(Character.isDigit(tabJeu[j][i]))
+					{
+						this.add(new Case(this,j,i,new Bateau('a',this,j,i,Direction.BAS)));
+					}
+					else
+						this.add(new Case(j,i));
 				}				
 			}
 		}
