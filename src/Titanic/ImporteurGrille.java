@@ -22,6 +22,7 @@ public class ImporteurGrille
 	
 	public void Chargement(String chemin) throws IOException
 	{
+		char sup[][] = new char [HAUTEUR_GRILLE][HAUTEUR_GRILLE];
 		try 
 		{
 			String ligne;
@@ -31,8 +32,7 @@ public class ImporteurGrille
 			{
 				for (int i = 0; i < ligne.length(); i++)
 				{
-					if (ligne.charAt(i) == '-')
-						continue;
+					sup[nbrLigne][i] = ligne.charAt(i);
 				}
 				nbrLigne++;
 			}
