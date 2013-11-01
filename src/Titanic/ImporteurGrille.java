@@ -1,8 +1,12 @@
 package Titanic;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImporteurGrille 
 {
@@ -14,28 +18,61 @@ public class ImporteurGrille
 	{
 	}
 	
-	private Flottant CreateurFlottant()
+	private List<Flottant> CreateurFlottant(char[][] tab)
 	{
+		List<Flottant> flottans = new ArrayList<Flottant>();
+		
+		for (int i = 0; i < tab.length; i++)
+		{
+			
+		}
+		
 		return null;
 	}
 	
 	
-	public void Chargement(String chemin) throws IOException
+	public void InitialisationJeu(String chemin)
+	{
+		try {
+			CreateurFlottant(Chargement(chemin));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	private char[][] Chargement(String chemin) throws IOException
 	{
 		char sup[][] = new char [HAUTEUR_GRILLE][HAUTEUR_GRILLE];
 		try 
 		{
 			String ligne;
 			int nbrLigne = 0;
-			in = new BufferedReader(new FileReader(chemin));
+			in = new BufferedReader(new InputStreamReader(new FileInputStream(chemin), "UTF-8"));
+			
 			while ( (ligne = in.readLine()) != null)
 			{
-				for (int i = 0; i < ligne.length(); i++)
+				String ligneTraite = ligne.trim();
+				
+				if(ligneTraite.isEmpty() || ligneTraite.charAt(0) == '#' || ligneTraite.length() == 1)
 				{
-					sup[nbrLigne][i] = ligne.charAt(i);
+					//Continue
 				}
-				nbrLigne++;
+				else
+				{
+					for (int i = 0; i < ligneTraite.length(); i++)
+					{
+						sup[nbrLigne][i] = ligneTraite.charAt(i);
+					}
+					if(++nbrLigne >= HAUTEUR_GRILLE)
+					{
+						break;
+					}
+				}
+				
 			}
+			System.out.println("t");
 		}
 		
 		catch (IOException e)
@@ -46,6 +83,7 @@ public class ImporteurGrille
 		{
 			in.close();
 		}
+		return sup;
 	}
 
 }

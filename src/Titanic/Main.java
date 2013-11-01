@@ -11,6 +11,8 @@ public class Main {
 		ecranTitanic.setVisible(true);
 		ecranTitanic.setResizable(false);
 		ecranTitanic.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImporteurGrille j = new ImporteurGrille();
+		j.InitialisationJeu("ConfigsPetits.txt");
 	}
 
 }
