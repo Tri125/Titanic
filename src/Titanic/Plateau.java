@@ -1,40 +1,70 @@
 package Titanic;
 
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
-
-import Titanic.Bateau.Direction;
-
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.util.List;
 
-public class Plateau  extends JPanel{
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
-	private GridLayout grille;
-	Bateau pd= new Bateau('c',this,0,0,Direction.BAS);
-	public Plateau()
-	{
-		JPanel panneau = new JPanel(new GridLayout(6,6));
-		panneau.setBorder(BorderFactory.createEmptyBorder(2,2,2,2));
-		this.setBorder(BorderFactory.createLineBorder(Color.orange, 4));
-
-		this.add(new JLabel("idk"));
+public class Plateau extends JPanel{
+	
+	private int dimY;
+	private int dimX;
+	protected List<Bateau> bateaux;
+	protected List<Naufrage> naufrages;
+	
+	/*Tableau temporaire avant lecture fichier*/
+	private char[] col0 = {'a','-','-','-','-','-'};
+	private char[] col1 = {'-','b','-','-','-','-'};
+	private char[] col2 = {'-','-','5','-','-','-'};
+	private char[] col3 = {'-','-','-','-','-','-'};
+	private char[] col4 = {'-','-','-','-','-','-'};
+	private char[] col5 = {'-','-','-','-','-','1'};
+	private char[][] tab = {col0,col1,col2,col3,col4,col5};
+	
+	Plateau(int x, int y){
+		this.dimX = x;
+		this.dimY = y;
+		this.setLayout(new GridLayout(dimX,dimY));
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+		this.setBackground(Color.CYAN);
+			
+		/*Assignation des cases et des éléments liés*/
+		for(int j = 0; j<dimX ;j++){
+			for(int i =0; i< dimY; i++){
+				if(Character.isLetter(tab[i][j]))
+					this.add(new Case(this,i,j,new Naufrage('a',this,i,j)));
+				else {
+					if(Character.isDigit(tab[i][j])){
+						this.add(new Case(this,i,j,new Bateau('a',this,i,j,Direction.BAS)));
+					}else
+						this.add(new Case(i,j));
+				}				
+			}
+		}
 	}
 	
-	public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        this.setBackground(Color.cyan);
-        g.drawString("Bonjour les amis", 40, 80);
-        // si on utilise les possibilitÃƒÂ©s du Graphique 2D
-        Graphics2D g2d = (Graphics2D)g;
-        //g2d.rotate(Math.PI/4,40,80); // tourner de 45 deg autour de 40,80
-        g2d.drawString("Bonjour les amis",40,80);
-        pd.afficher(g,"");
-        
-    }
+	public void PositionProue(Graphics g, int i,int j, Direction d){
+		
+		if(d == Direction.HAUT){
+			((Case)(this.getComponentAt(i, j-1))).AfficherProue(g,d);
+		}
+		if(d == Direction.BAS){
+			((Case)(this.getComponentAt(i, j+1))).AfficherProue(g,d);
+		}
+		if(d == Direction.DROITE){
+			((Case)(this.getComponentAt(i+1, j))).AfficherProue(g,d);
+		}
+		if(d == Direction.GAUCHE){
+			((Case)(this.getComponentAt(i-1, j))).AfficherProue(g,d);
+		}
+		
+	}
+	
+	/*public void paintComponent(Graphics g) {		
+		super.paintComponent(g);
+	}*/
 }

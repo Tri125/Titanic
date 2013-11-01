@@ -16,7 +16,7 @@ public class EcranJeu extends JFrame {
 	public EcranJeu()
 	{
 		super();
-		plateauJeu = new Plateau();
+		plateauJeu = new Plateau(6,6);
 		topMenu = new JMenuBar();
 		
 		JMenu fichier = new JMenu("Fichier");
@@ -58,6 +58,7 @@ public class EcranJeu extends JFrame {
 		plateauJeu.setVisible(true);
 		plateauJeu.setSize(400,400);
 		this.add(plateauJeu);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	}
 	
 }
