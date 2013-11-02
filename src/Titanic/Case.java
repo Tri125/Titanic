@@ -12,21 +12,21 @@ import javax.swing.JPanel;
 public class Case extends JPanel{
 	
 	final int RAYON = 15;
-	private int i,j;
+	private int x,y;
 	private Flottant flot;
 	private Plateau plateau;
 
 	Case(Plateau p,int x,int y,Flottant f){
 		plateau = p;
-		i = x;
-		j = y;
+		this.x = x;
+		this.y = y;
 		flot = f;
 		this.setBackground(Color.CYAN);
 	}
 	
 	Case(int x, int y){
-		i = x;
-		j = y;
+		this.x = x;
+		this.y = y;
 		this.setBackground(Color.CYAN);
 	}
 	
@@ -40,9 +40,10 @@ public class Case extends JPanel{
 		//Contour Case
 		g.setColor(Color.black);
         g.drawRect(0, 0, getSize().width, getSize().height);
-        
         if(this.flot instanceof Bateau)
+        {
         	AfficherBateau(g,getSize().width,getSize().height);
+        }
         else{
         	if(this.flot instanceof Naufrage)
         		AfficherNaufrage(g,getSize().width,getSize().height);
@@ -64,7 +65,7 @@ public class Case extends JPanel{
 		g.fillRect(5, 5, w-10, h-10);
 		
 		//Problème d'affichage de la proue du bateau
-		//this.plateau.PositionProue(g, i, j, ((Bateau)(this.flot)).getDirection());		
+		this.plateau.PositionProue(g, x+1, y+1, ((Bateau)(flot)).getDirection());		
 	}
 	
 	public void AfficherProue(Graphics g, Direction d){
@@ -124,7 +125,7 @@ public class Case extends JPanel{
     }
 	
 	public String toString(){
-		String str = "Case : "+i+" x "+j;
+		String str = "Case : "+x+" x "+y;
         return str;
     }
 	

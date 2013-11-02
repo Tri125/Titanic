@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -16,37 +17,84 @@ public class Plateau extends JPanel{
 	protected List<Bateau> bateaux;
 	protected List<Naufrage> naufrages;
 	
-	Plateau(int x, int y, char[][] tabJeu){
-		this.dimX = x;
-		this.dimY = y;
+	Plateau(int dimX, int dimY, char[][] tabJeu){
+		this.dimX = dimX;
+		this.dimY = dimY;
 		this.setLayout(new GridLayout(dimX,dimY));
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		this.setBackground(Color.CYAN);
-			
-		/*Assignation des cases et des �l�ments li�s*/
-		for(int j = 0; j<dimX ;j++)
+		Case[][] cases = new Case[dimY][dimX];	
+		/*Assignation des cases et des éléments liés*/
+		for(int y = 0; y<dimY ;y++)
 		{
-			for(int i =0; i< dimY; i++)
+			for(int x =0; x< dimX; x++)
 			{
-				if(Character.isLetter(tabJeu[j][i]))
-					this.add(new Case(this,j,i,new Naufrage('a',this,j,i)));
-				else 
+				if(Character.isLetter(tabJeu[y][x]))
+					cases[y][x] = new Case(this,x,y,new Naufrage('a',this,x,y));
+				else
 				{
-					if(Character.isDigit(tabJeu[j][i]))
+					if(tabJeu[y][x] == '-')
 					{
-						this.add(new Case(this,j,i,new Bateau('a',this,j,i,Direction.BAS)));
+						cases[y][x] = new Case(x,y);
 					}
-					else
-						this.add(new Case(j,i));
+					else 
+					{
+						switch (tabJeu[y][x])
+						{
+							case '↑':
+							{
+								System.out.println(x + ":" + (y+1));
+								System.out.println(x + ":" + (y));
+								cases[y+1][x] = new Case(this,x,y+1,new Bateau('a',this,x,y+1,Direction.HAUT));
+								cases[y][x] = new Case(x,y);
+								break;
+							}
+							case '←':
+							{
+								System.out.println((x+1) + ":" + (y));
+								cases[y][x+1] = new Case(this,x+1,y,new Bateau('a',this,x+1,y,Direction.GAUCHE));
+								cases[y][x] = new Case(x,y);
+								break;
+							}
+							case '↓':
+							{
+								System.out.println(x + ":" + (y-1));
+								cases[y-1][x] = new Case(this,x,y-1,new Bateau('a',this,x,y-1,Direction.BAS));
+								cases[y][x] = new Case(x,y);
+								break;
+							}
+							case '→':
+							{
+								System.out.println((x-1) + ":" + (y));
+								cases[y][x-1] = new Case(this,x-1,y,new Bateau('a',this,x-1,y,Direction.DROITE));
+								cases[y][x] = new Case(x,y);
+								break;
+							}
+						
+							default:
+							{
+								break;
+							}
+						}
+						
+					}
 				}				
+			}
+		}
+		System.out.println("dd");
+		for (int y = 0; y< cases.length; y++)
+		{
+			for (int x = 0; x < cases[y].length; x++)
+			{
+				this.add(cases[y][x]);
 			}
 		}
 	}
 	
 	public void PositionProue(Graphics g, int i,int j, Direction d){
-		
+		System.out.println(d.toString());
 		if(d == Direction.HAUT){
-			((Case)(this.getComponentAt(i, j-1))).AfficherProue(g,d);
+			//((Case)(this.getComponentAt(i, j-1))).AfficherProue(g,d);
 		}
 		if(d == Direction.BAS){
 			((Case)(this.getComponentAt(i, j+1))).AfficherProue(g,d);
