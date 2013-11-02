@@ -16,6 +16,7 @@ public class Plateau extends JPanel{
 	private int dimX;
 	protected List<Bateau> bateaux;
 	protected List<Naufrage> naufrages;
+	private Case[][] cases;
 	
 	Plateau(int dimX, int dimY, char[][] tabJeu){
 		this.dimX = dimX;
@@ -23,7 +24,7 @@ public class Plateau extends JPanel{
 		this.setLayout(new GridLayout(dimX,dimY));
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
 		this.setBackground(Color.CYAN);
-		Case[][] cases = new Case[dimY][dimX];	
+		cases = new Case[dimY][dimX];	
 		/*Assignation des cases et des éléments liés*/
 		for(int y = 0; y<dimY ;y++)
 		{
@@ -92,18 +93,17 @@ public class Plateau extends JPanel{
 	}
 	
 	public void PositionProue(Graphics g, int i,int j, Direction d){
-		System.out.println(d.toString());
 		if(d == Direction.HAUT){
-			//((Case)(this.getComponentAt(i, j-1))).AfficherProue(g,d);
+			cases[j-1][i].AfficherProue(g,d);
 		}
 		if(d == Direction.BAS){
-			((Case)(this.getComponentAt(i, j+1))).AfficherProue(g,d);
+			cases[j+1][i].AfficherProue(g, d);
 		}
 		if(d == Direction.DROITE){
-			((Case)(this.getComponentAt(i+1, j))).AfficherProue(g,d);
+			cases[j][i+1].AfficherProue(g, d);
 		}
 		if(d == Direction.GAUCHE){
-			((Case)(this.getComponentAt(i-1, j))).AfficherProue(g,d);
+			cases[j][i-1].AfficherProue(g, d);
 		}
 		
 	}
