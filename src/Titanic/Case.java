@@ -65,7 +65,7 @@ public class Case extends JPanel{
 		g.fillRect(5, 5, w-10, h-10);
 		
 		//Problème d'affichage de la proue du bateau
-		this.plateau.PositionProue(g, x+1, y+1, ((Bateau)(flot)).getDirection());		
+		this.plateau.PositionProue(g, x, y, ((Bateau)(flot)).getDirection());		
 	}
 	
 	public void AfficherProue(Graphics g, Direction d){
