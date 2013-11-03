@@ -7,10 +7,23 @@ import java.awt.geom.AffineTransform;
 
 public class Proue extends Flottant {
 	private Direction direction;
+	private Case caseBateau;
+	
 	public Proue(char id, Plateau p, int i, int j, Direction d){
 		super(id,p,i,j);
 		direction = d;
 	}
+	
+	public void setCaseBateau(Case caseBateau)
+	{
+		this.caseBateau = caseBateau;
+	}
+	
+	public Case getCaseBateau()
+	{
+		return caseBateau;
+	}
+	
 	public void AfficherProue(Graphics g, int w,int h){
 		char[] id = {this.getId()};
 		String str = new String(id);
@@ -26,7 +39,7 @@ public class Proue extends Flottant {
 			g.setColor(Color.BLACK);
 			g.drawString(str, w/2, h/2);
 		}	
-		// Triangle à l'envers
+		// Triangle ï¿½ l'envers
 		if(this.direction == Direction.BAS){
 			g2d.rotate(Math.toRadians(180));
 		    this.remplirTriangle(g2d, -w, -h, w, h);

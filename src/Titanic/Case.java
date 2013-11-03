@@ -80,13 +80,32 @@ public class Case extends JPanel implements MouseListener{
 	{
 			this.plateau.DeSelectionCases();
 			System.out.println(this.x + ":" + this.y);
-			selectionner = true;
-			this.repaint();
+			if (flot instanceof Bateau || flot instanceof Proue)
+			{
+				if (flot instanceof Bateau)
+				{
+					((Bateau) flot).getProue().Sellection();;
+				}
+				else
+				{
+					if (flot instanceof Proue)
+					{
+						((Proue) flot).getCaseBateau().Sellection();
+					}
+				}
+				Sellection();
+				this.repaint();
+			}
 	}
 	
 	public void DeSellection()
 	{
 		selectionner = false;
+	}
+	
+	public void Sellection()
+	{
+		selectionner = true;
 	}
 	
 	

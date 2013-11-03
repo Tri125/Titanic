@@ -51,18 +51,24 @@ public class Plateau extends JPanel {
 							{
 								cases[y+1][x] = new Case(this,x,y+1,new Bateau(tabJeu[y+1][x],this,x,y+1,x,y,Direction.HAUT));
 								cases[y][x] = ((Bateau) (cases[y+1][x].getFlottant())).getProue();
+								Proue p = (Proue)((Bateau) (cases[y+1][x].getFlottant())).getProue().getFlottant();
+								p.setCaseBateau(cases[y+1][x]);
 								break;
 							}
 							case '←':
 							{
 								cases[y][x+1] = new Case(this,x+1,y,new Bateau(tabJeu[y][x+1],this,x+1,y,x,y,Direction.GAUCHE));
 								cases[y][x] = ((Bateau) (cases[y][x+1].getFlottant())).getProue();
+								Proue p = (Proue)((Bateau) (cases[y][x+1].getFlottant())).getProue().getFlottant();
+								p.setCaseBateau(cases[y][x+1]);
 								break;
 							}
 							case '↓':
 							{
 								cases[y-1][x] = new Case(this,x,y-1,new Bateau(tabJeu[y-1][x],this,x,y-1,x,y,Direction.BAS));
 								cases[y][x] = ((Bateau) (cases[y-1][x].getFlottant())).getProue();
+								Proue p = (Proue)((Bateau) (cases[y-1][x].getFlottant())).getProue().getFlottant();
+								p.setCaseBateau(cases[y-1][x]);
 								break;
 								
 							}
@@ -70,6 +76,8 @@ public class Plateau extends JPanel {
 							{
 								cases[y][x-1] = new Case(this,x-1,y,new Bateau(tabJeu[y][x-1],this,x-1,y,x,y,Direction.DROITE));
 								cases[y][x] = ((Bateau) (cases[y][x-1].getFlottant())).getProue();
+								Proue p = (Proue)((Bateau) (cases[y][x-1].getFlottant())).getProue().getFlottant();
+								p.setCaseBateau(cases[y][x-1]);
 								break;
 							}
 						
