@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -11,8 +13,11 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class Plateau extends JPanel {
 	
@@ -31,6 +36,13 @@ public class Plateau extends JPanel {
 		cases = new Case[dimY][dimX];
 		
 		//Assignation des cases et des éléments liés
+		GenerateGrid(tabJeu);
+		SetKeybind();
+
+	}
+	
+	private void GenerateGrid(char[][] tabJeu)
+	{
 		for(int y = 0; y<dimY ;y++)
 		{
 			for(int x =0; x< dimX; x++)
@@ -97,6 +109,47 @@ public class Plateau extends JPanel {
 				this.add(cases[y][x]);
 			}
 		}
+	}
+	
+	private void SetKeybind()
+	{
+		this.getInputMap().put(KeyStroke.getKeyStroke("LEFT"),"pressedLeft");
+		this.getActionMap().put("pressedLeft", new MoveShipAction(Direction.GAUCHE));
+		
+		this.getInputMap().put(KeyStroke.getKeyStroke("RIGHT"),"pressedRight");
+		this.getActionMap().put("pressedRight", new MoveShipAction(Direction.DROITE));
+		
+		this.getInputMap().put(KeyStroke.getKeyStroke("UP"),"pressedUp");
+		this.getActionMap().put("pressedUp", new MoveShipAction(Direction.HAUT));
+		
+		this.getInputMap().put(KeyStroke.getKeyStroke("DOWN"),"pressedDown");
+		this.getActionMap().put("pressedDown", new MoveShipAction(Direction.BAS));
+	}
+	
+	
+	private class MoveShipAction extends AbstractAction {
+		private Direction dir;
+		
+		public MoveShipAction(Direction dir) {
+			this.dir = dir;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			MoveShip(dir);
+		}
+	}
+	
+	
+	private void MoveShip(Direction dir)
+	{
+		//Méthode pour ordonner le déplacement
+		System.out.println(dir);
+	}
+	
+	private void LeftKey()
+	{
+		
 	}
 	
 	public void DeSelectionCases()
