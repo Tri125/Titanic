@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class Plateau extends JPanel {
 				{
 					if(tabJeu[y][x] == '-')
 					{
-						cases[y][x] = new Case(x,y);
+						cases[y][x] = new Case(this,x,y);
 					}
 					else 
 					{
@@ -88,5 +90,19 @@ public class Plateau extends JPanel {
 			}
 		}
 	}
+	
+	public void DeSelectionCases()
+	{
+		for (int y = 0; y < cases.length; y++)
+		{
+			for (int x = 0; x <cases[y].length; x++)
+			{
+				cases[y][x].DeSellection();
+				cases[y][x].repaint();
+			}
+		}
+		
+	}
+	
 }
 	

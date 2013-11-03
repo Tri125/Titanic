@@ -29,9 +29,10 @@ public class Case extends JPanel implements MouseListener{
 		addMouseListener(this);
 	}
 	
-	Case(int x, int y){
+	Case(Plateau p, int x, int y){
 		this.x = x;
 		this.y = y;
+		this.plateau = p;
 		this.setBackground(Color.CYAN);
 		addMouseListener(this);
 	}
@@ -75,11 +76,18 @@ public class Case extends JPanel implements MouseListener{
 		
 	}
 	
-	public void mouseClicked(MouseEvent e) {
-		System.out.println(this.x + ":" + this.y);
-		selectionner = !selectionner;
-		this.repaint();
-	    }
+	public void mouseClicked(MouseEvent e) 
+	{
+			this.plateau.DeSelectionCases();
+			System.out.println(this.x + ":" + this.y);
+			selectionner = true;
+			this.repaint();
+	}
+	
+	public void DeSellection()
+	{
+		selectionner = false;
+	}
 	
 	
 	public void mousePressed(MouseEvent e) {
