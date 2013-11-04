@@ -124,7 +124,6 @@ public class Plateau extends JPanel {
 		this.getActionMap().put("pressedDown", new MoveShipAction(Direction.BAS));
 	}
 	
-	
 	private class MoveShipAction extends AbstractAction {
 		private Direction dir;
 		
@@ -143,76 +142,60 @@ public class Plateau extends JPanel {
 		//Méthode pour ordonner le déplacement
 		int[][] posBat = new int[2][2];
 		int i=0;
-		Case tmp1 = new Case();
-		Case tmp2 = new Case();
 		for (int y = 0; y < cases.length; y++)
 		{
 			for (int x = 0; x <cases[y].length; x++)
 			{
 				if(cases[y][x].IsSelectionner()== true)
 				{
-						if(i==0)tmp1 = cases[y][x];
-						else{tmp2 = cases[y][x];}
 						posBat[i][0]=x; 	
 						posBat[i][1]=y;
 						i++;
 				}
 			}
 		}
+		System.out.println("Select : "+posBat[0][0]+":"+posBat[0][1]+" - "+ posBat[1][0]+" - "+posBat[1][1]);
 		if(VerifierCase(dir,posBat[0][0],posBat[0][1]) && VerifierCase(dir,posBat[1][0],posBat[1][1]))
 		{
-			
-			if(dir == Direction.BAS || dir == Direction.DROITE)
-			{
-				Bouger(dir,posBat[1][0],posBat[1][1]);
-				Bouger(dir,posBat[0][0],posBat[0][1]);
-			}
-			else
-			{
-				Bouger(dir,posBat[0][0],posBat[0][1]);
-				Bouger(dir,posBat[1][0],posBat[1][1]);
-			}
-		}
-		this.removeAll();
-		this.revalidate();
-		for (int y = 0; y < cases.length; y++)
-		{
-			for (int x = 0; x <cases[y].length; x++)
-			{
-				this.add(cases[y][x]);
-				cases[y][x].repaint();			
+			if((cases[posBat[0][1]][posBat[0][0]].getFlottant() instanceof Bateau || cases[posBat[0][1]][posBat[0][0]].getFlottant() instanceof Proue)
+					&& (cases[posBat[1][1]][posBat[1][0]].getFlottant() instanceof Bateau || cases[posBat[1][1]][posBat[1][0]].getFlottant() instanceof Proue)){
+				if(dir == Direction.BAS || dir == Direction.DROITE)
+				{
+					Bouger(dir,posBat[1][0],posBat[1][1]);
+					Bouger(dir,posBat[0][0],posBat[0][1]);
+				}
+				else
+				{
+					Bouger(dir,posBat[0][0],posBat[0][1]);
+					Bouger(dir,posBat[1][0],posBat[1][1]);
+				}
 			}
 		}
+		this.Reafficher();
 	}
 	
-	
 	private void Bouger(Direction dir,int x,int y){
-		System.out.println("Bouge "+x+":"+y+"->");
 		if(dir == Direction.HAUT){
 			cases[y-1][x] = cases[y][x];
 			cases[y-1][x].setCoor(x, y-1);
-			cases[y-1][x].Selection();
-			System.out.println(cases[y-1][x]);
 		}
 		if(dir == Direction.BAS){
 			cases[y+1][x] = cases[y][x];
 			cases[y+1][x].setCoor(x, y+1);
-			System.out.println(cases[y+1][x]);
 		}
 		if(dir == Direction.GAUCHE){
 			cases[y][x-1] = cases[y][x];
 			cases[y][x-1].setCoor(x-1, y);
-			System.out.println(cases[y][x-1]);
 		}
 		if(dir == Direction.DROITE){
 			cases[y][x+1] = cases[y][x];
 			cases[y][x+1].setCoor(x+1, y);
-			System.out.println(cases[y][x+1]);
 		}
 		cases[y][x] = new Case(this,x,y);
 	}
 	
 	private boolean VerifierCase(Direction dir,int x,int y){
+
 		boolean b= false;
 		if(dir == Direction.HAUT){
 			if((y-1) >= 0
@@ -243,6 +226,69 @@ public class Plateau extends JPanel {
 			}
 		}
 		return b;
+	}
+	
+	private void Reafficher(){
+		this.removeAll();
+		this.revalidate();
+		for (int y = 0; y < cases.length; y++)
+		{
+			for (int x = 0; x <cases[y].length; x++)
+			{
+				this.add(cases[y][x]);
+				cases[y][x].repaint();			
+			}
+		}
+	}
+	
+	public Case getCase(int i,int j){
+		return cases[j][i];
+	}
+	
+	public Case TestSauver(Naufrage n){
+		Case c = null;
+		int xCour = n.getI();
+		int yCour = n.getJ();
+		if(xCour-1 >=0 
+				&& cases[yCour][xCour-1].getFlottant() instanceof Bateau 
+				&& ((Bateau)(cases[yCour][xCour-1].getFlottant())).getNaufrage() == null){
+			c=cases[yCour][xCour-1];
+		}
+		else
+		{
+			if(xCour+1 < dimX
+				&&cases[yCour][xCour+1].getFlottant() instanceof Bateau 
+				&& ((Bateau)(cases[yCour][xCour+1].getFlottant())).getNaufrage() == null){
+				c=cases[yCour][xCour+1];
+			}
+			else
+			{
+				if(yCour-1 >= 0
+					&& cases[yCour-1][xCour].getFlottant() instanceof Bateau 
+					&& ((Bateau)(cases[yCour-1][xCour].getFlottant())).getNaufrage() == null){
+					c=cases[yCour-1][xCour];
+				}
+				else
+				{
+					if(yCour+1 <= dimY
+						&& cases[yCour+1][xCour].getFlottant() instanceof Bateau 
+						&& ((Bateau)(cases[yCour+1][xCour].getFlottant())).getNaufrage() == null){
+						c=cases[yCour+1][xCour];
+					}
+				}
+			}
+		}
+		
+		return c;
+	}
+	public void SauverNaufrage(Naufrage n,Case secoureur){
+		int x = n.getI();
+		int y = n.getJ();
+		((Bateau)(secoureur.getFlottant())).setNaufrage(n);
+		n.setSafe();
+		cases[y][x] = new Case(this,x,y);
+		this.DeSelectionCases();
+		this.Reafficher();
 	}
 	
 	public void DeSelectionCases()

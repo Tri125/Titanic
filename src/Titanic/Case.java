@@ -14,40 +14,32 @@ import javax.swing.JPanel;
 public class Case extends JPanel implements MouseListener{
 	
 	final int RAYON = 15;
-	private int x,y;
+	private int x;
+	private int y;
 	private Flottant flot;
 	private Plateau plateau;
 	private boolean selectionner = false;
 	private Color c = new Color(176,196,222,150);
 	
-	Case()
-	{
-		x=-1;
-		y=-1;
-		flot=null;
-		plateau =null;
-	}
-
 	Case(Plateau p,int x,int y,Flottant f){
 		plateau = p;
+		flot = f;
 		this.x = x;
 		this.y = y;
-		flot = f;
 		this.setBackground(Color.CYAN);
 		addMouseListener(this);
 	}
 	
 	Case(Plateau p, int x, int y){
-		this.x = x;
-		this.y = y;
 		this.plateau = p;
 		this.flot = null; 
+		this.x = x;
+		this.y = y;
 		this.setBackground(Color.CYAN);
 		addMouseListener(this);
 	}
+	
 	public void setCoor(int i,int j){
-		this.x=i;
-		this.y=j;
 		this.flot.setIJ(i, j);
 	}
 	
@@ -59,7 +51,7 @@ public class Case extends JPanel implements MouseListener{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-	
+		
 		//Contour Case
 		g.setColor(Color.black);
         g.drawRect(0, 0, getSize().width, getSize().height);
@@ -70,38 +62,31 @@ public class Case extends JPanel implements MouseListener{
         	((Proue)(this.flot)).AfficherProue(g,getSize().width,getSize().height);
         }
         if(this.flot instanceof Naufrage){
-        	AfficherNaufrage(g,getSize().width,getSize().height);
+        	Case c = plateau.TestSauver((Naufrage)(this.flot));
+        	if( c != null && !((Naufrage)(this.flot)).getSafe()){	
+        			plateau.SauverNaufrage((Naufrage)(this.flot),c);
+        	}
+        	((Naufrage)(this.flot)).AfficherNaufrage(g,getSize().width,getSize().height);
         }
         if(selectionner)
         {
         	g.setColor(c);
         	g.fillRect(0, 0, getSize().width, getSize().height);
-        }     	
-	}
-	
-	private void AfficherNaufrage(Graphics g, int w, int h){
-		char[] id = {this.flot.getId()};
-		String str = new String(id);
-		
-		g.setColor(Color.RED);
-		g.fillOval(w/2-this.RAYON, h/2-this.RAYON, this.RAYON*2, this.RAYON*2);
-		g.setColor(Color.black);
-		g.drawString(str, w/2, h/2);
+        }
 	}
 	
 	public void mouseClicked(MouseEvent e) 
 	{
 			this.plateau.DeSelectionCases();
-			//System.out.println(this.x + ":" + this.y);
 			if (flot instanceof Bateau || flot instanceof Proue)
 			{
-				if (flot instanceof Bateau)
+				if (flot instanceof Bateau && ((Bateau)(this.flot)).getNaufrage() ==null)
 				{
 					((Bateau) flot).getProue().Selection();;
 				}
 				else
 				{
-					if (flot instanceof Proue)
+					if (flot instanceof Proue && ((Bateau)(((Proue) flot).getCaseBateau().getFlottant())).getNaufrage() == null)
 					{
 						((Proue) flot).getCaseBateau().Selection();
 					}
@@ -126,7 +111,6 @@ public class Case extends JPanel implements MouseListener{
 		}
 		selectionner = true;
 	}
-	
 	
 	public void mousePressed(MouseEvent e) {
 	}

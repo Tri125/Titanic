@@ -19,6 +19,7 @@ public class Bateau extends Flottant {
 	}
 	
 	public void setNaufrage(Naufrage n){
+		n.setIJ(this.getI(), this.getJ());
 		Sauver = n;
 	}
 	public Case getProue(){
@@ -35,6 +36,8 @@ public class Bateau extends Flottant {
 	public void AfficherBateau(Graphics g, int w,int h){
 		g.setColor(Color.ORANGE);	
 		g.fillRect(0, 0, w+1, h+1);
+		if(Sauver != null)
+			Sauver.AfficherNaufrage(g, w, h);
 	}
 	
 }
