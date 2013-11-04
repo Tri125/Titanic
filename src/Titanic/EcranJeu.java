@@ -37,6 +37,9 @@ public class EcranJeu extends JFrame {
 			}
 		});
 		
+		
+
+		
 		JMenuItem haut = new JMenuItem("Haut");
 		JMenuItem bas = new JMenuItem("Bas");
 		JMenuItem gauche = new JMenuItem("Gauche");
@@ -44,25 +47,46 @@ public class EcranJeu extends JFrame {
 		JMenuItem recommencer = new JMenuItem("Recommencer");
 		JMenuItem annuler = new JMenuItem("Annuler");
 		
+		
+		recommencer.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent event) {
+				Recommencer();
+			}});
+		
 		fichier.add(ouvrir);
+		ouvrir.setEnabled(false);
 		fichier.add(quitter);
 		
 		actions.add(haut);
+		haut.setEnabled(false);
 		actions.add(bas);
+		bas.setEnabled(false);
 		actions.add(gauche);
+		gauche.setEnabled(false);
 		actions.add(droite);
+		droite.setEnabled(false);
 		actions.add(recommencer);
 		actions.add(annuler);
+		annuler.setEnabled(false);
 		
 		topMenu.add(fichier);
 		topMenu.add(actions);
-		
+	
 		this.setJMenuBar(topMenu);
 		this.setTitle("Titanic");
 		plateauJeu.setVisible(true);
 		plateauJeu.setSize(400,400);
 		this.add(plateauJeu);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+	}
+	
+	private void Recommencer() {
+		this.remove(plateauJeu);
+		tabJeu = importeurGrille.Chargement(CHEMIN_FICHIER_GRILLE);
+		plateauJeu = new Plateau(6,6, tabJeu);
+		this.add(plateauJeu);
+		this.revalidate();
+		
 	}
 	
 }
