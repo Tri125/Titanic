@@ -19,6 +19,14 @@ public class Case extends JPanel implements MouseListener{
 	private Plateau plateau;
 	private boolean selectionner = false;
 	private Color c = new Color(176,196,222,150);
+	
+	Case()
+	{
+		x=-1;
+		y=-1;
+		flot=null;
+		plateau =null;
+	}
 
 	Case(Plateau p,int x,int y,Flottant f){
 		plateau = p;
@@ -33,13 +41,21 @@ public class Case extends JPanel implements MouseListener{
 		this.x = x;
 		this.y = y;
 		this.plateau = p;
+		this.flot = null; 
 		this.setBackground(Color.CYAN);
 		addMouseListener(this);
+	}
+	public void setCoor(int i,int j){
+		this.x=i;
+		this.y=j;
+		this.flot.setIJ(i, j);
 	}
 	
 	public Flottant getFlottant(){
 		return flot;
 	}
+	
+	public boolean IsSelectionner(){return selectionner;}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -60,11 +76,9 @@ public class Case extends JPanel implements MouseListener{
         {
         	g.setColor(c);
         	g.fillRect(0, 0, getSize().width, getSize().height);
-        }
-        	
+        }     	
 	}
 	
-	//***Manque les chiffres/lettres**//
 	private void AfficherNaufrage(Graphics g, int w, int h){
 		char[] id = {this.flot.getId()};
 		String str = new String(id);
@@ -73,58 +87,60 @@ public class Case extends JPanel implements MouseListener{
 		g.fillOval(w/2-this.RAYON, h/2-this.RAYON, this.RAYON*2, this.RAYON*2);
 		g.setColor(Color.black);
 		g.drawString(str, w/2, h/2);
-		
 	}
 	
 	public void mouseClicked(MouseEvent e) 
 	{
 			this.plateau.DeSelectionCases();
-			System.out.println(this.x + ":" + this.y);
+			//System.out.println(this.x + ":" + this.y);
 			if (flot instanceof Bateau || flot instanceof Proue)
 			{
 				if (flot instanceof Bateau)
 				{
-					((Bateau) flot).getProue().Sellection();;
+					((Bateau) flot).getProue().Selection();;
 				}
 				else
 				{
 					if (flot instanceof Proue)
 					{
-						((Proue) flot).getCaseBateau().Sellection();
+						((Proue) flot).getCaseBateau().Selection();
 					}
 				}
-				Sellection();
+				Selection();
 				this.repaint();
 			}
 	}
 	
-	public void DeSellection()
+	public void DeSelection()
 	{
+		if(this.flot != null){
+			this.flot.setSelected(false);
+		}
 		selectionner = false;
 	}
 	
-	public void Sellection()
+	public void Selection()
 	{
+		if(this.flot != null){
+			this.flot.setSelected(true);
+		}
 		selectionner = true;
 	}
 	
 	
 	public void mousePressed(MouseEvent e) {
-	    }
+	}
 
-	    public void mouseReleased(MouseEvent e) {
-	    }
+	public void mouseReleased(MouseEvent e) {
+	}
 
-	    public void mouseEntered(MouseEvent e) {
-	    }
+	public void mouseEntered(MouseEvent e) {
+	}
 
-	    public void mouseExited(MouseEvent e) {
-	    }
-
-	
+	public void mouseExited(MouseEvent e) {
+	}
 	
 	public String toString(){
-		String str = "Case : "+ x +" x "+ y;
-        return str;
+        return "Case : "+ selectionner + "flot: "+ flot;
     }
 }

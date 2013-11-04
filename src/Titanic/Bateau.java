@@ -32,11 +32,9 @@ public class Bateau extends Flottant {
 		return direction;
 	}
 	
-	//**Manque exeption bateau et chiffres/lettres**//
 	public void AfficherBateau(Graphics g, int w,int h){
 		g.setColor(Color.ORANGE);	
 		g.fillRect(0, 0, w+1, h+1);
-		
 	}
 	
 }

@@ -23,8 +23,6 @@ public class Plateau extends JPanel {
 	
 	private int dimY;
 	private int dimX;
-	//protected List<Bateau> bateaux;
-	//protected List<Naufrage> naufrages;
 	private Case[][] cases;
 	
 	Plateau(int dimX, int dimY, char[][] tabJeu){
@@ -139,17 +137,112 @@ public class Plateau extends JPanel {
 			MoveShip(dir);
 		}
 	}
-	
-	
+		
 	private void MoveShip(Direction dir)
 	{
 		//Méthode pour ordonner le déplacement
-		System.out.println(dir);
+		int[][] posBat = new int[2][2];
+		int i=0;
+		Case tmp1 = new Case();
+		Case tmp2 = new Case();
+		for (int y = 0; y < cases.length; y++)
+		{
+			for (int x = 0; x <cases[y].length; x++)
+			{
+				if(cases[y][x].IsSelectionner()== true)
+				{
+						if(i==0)tmp1 = cases[y][x];
+						else{tmp2 = cases[y][x];}
+						posBat[i][0]=x; 	
+						posBat[i][1]=y;
+						i++;
+				}
+			}
+		}
+		if(VerifierCase(dir,posBat[0][0],posBat[0][1]) && VerifierCase(dir,posBat[1][0],posBat[1][1]))
+		{
+			
+			if(dir == Direction.BAS || dir == Direction.DROITE)
+			{
+				Bouger(dir,posBat[1][0],posBat[1][1]);
+				Bouger(dir,posBat[0][0],posBat[0][1]);
+			}
+			else
+			{
+				Bouger(dir,posBat[0][0],posBat[0][1]);
+				Bouger(dir,posBat[1][0],posBat[1][1]);
+			}
+		}
+		this.removeAll();
+		this.revalidate();
+		for (int y = 0; y < cases.length; y++)
+		{
+			for (int x = 0; x <cases[y].length; x++)
+			{
+				this.add(cases[y][x]);
+				cases[y][x].repaint();			
+			}
+		}
 	}
 	
-	private void LeftKey()
-	{
-		
+	
+	private void Bouger(Direction dir,int x,int y){
+		System.out.println("Bouge "+x+":"+y+"->");
+		if(dir == Direction.HAUT){
+			cases[y-1][x] = cases[y][x];
+			cases[y-1][x].setCoor(x, y-1);
+			cases[y-1][x].Selection();
+			System.out.println(cases[y-1][x]);
+		}
+		if(dir == Direction.BAS){
+			cases[y+1][x] = cases[y][x];
+			cases[y+1][x].setCoor(x, y+1);
+			System.out.println(cases[y+1][x]);
+		}
+		if(dir == Direction.GAUCHE){
+			cases[y][x-1] = cases[y][x];
+			cases[y][x-1].setCoor(x-1, y);
+			System.out.println(cases[y][x-1]);
+		}
+		if(dir == Direction.DROITE){
+			cases[y][x+1] = cases[y][x];
+			cases[y][x+1].setCoor(x+1, y);
+			System.out.println(cases[y][x+1]);
+		}
+		cases[y][x] = new Case(this,x,y);
+	}
+	
+	private boolean VerifierCase(Direction dir,int x,int y){
+		boolean b= false;
+		if(dir == Direction.HAUT){
+			if((y-1) >= 0
+				&& (cases[y-1][x].getFlottant() == null 
+				|| cases[y-1][x].IsSelectionner())){	
+				b= true;
+			}
+		}
+		if(dir == Direction.BAS){
+			if((y+1) < dimY 
+					&& (cases[y+1][x].getFlottant() == null 
+					|| cases[y+1][x].IsSelectionner())){
+				b= true;
+			}
+		}
+		if(dir == Direction.GAUCHE){
+			if((x-1) >= 0 
+					&& (cases[y][x-1].getFlottant() == null 
+					|| cases[y][x-1].IsSelectionner())){
+				b= true;
+			}
+		}
+		if(dir == Direction.DROITE){
+			if((x+1) < dimX
+					&& (cases[y][x+1].getFlottant() == null 
+					|| cases[y][x+1].IsSelectionner())){
+				b= true;
+			}
+		}
+		return b;
 	}
 	
 	public void DeSelectionCases()
@@ -158,7 +251,7 @@ public class Plateau extends JPanel {
 		{
 			for (int x = 0; x <cases[y].length; x++)
 			{
-				cases[y][x].DeSellection();
+				cases[y][x].DeSelection();
 				cases[y][x].repaint();
 			}
 		}
