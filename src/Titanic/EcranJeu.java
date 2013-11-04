@@ -85,7 +85,7 @@ public class EcranJeu extends JFrame {
 		tabJeu = importeurGrille.Chargement(CHEMIN_FICHIER_GRILLE);
 		plateauJeu = new Plateau(6,6, tabJeu);
 		this.add(plateauJeu);
-		this.revalidate();
+		this.validate();
 		
 	}
 	
