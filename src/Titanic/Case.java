@@ -2,13 +2,8 @@ package Titanic;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Label;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.AffineTransform;
-
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 public class Case extends JPanel implements MouseListener{

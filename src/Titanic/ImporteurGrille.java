@@ -2,15 +2,11 @@ package Titanic;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ImporteurGrille 
 {
-	private String cheminFichier = null;
 	private BufferedReader in = null;
 	private final int DIMENSION_GRILLE;
 	
