@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.2)  3 NOV 2013 23:02
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.2)  3 NOV 2013 23:27
 entering extended mode
 **TP2-Titanic*rapport.tex
 ("E:\Users\Tristan\workspace\Titanic\Rapport\TP2-Titanic rapport.tex"
@@ -853,7 +853,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--88
 
  []
 
-[3] [4]
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 89--91
+
+ []
+
+[4]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 117.
  [5]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 117.
@@ -865,10 +870,10 @@ Package rerunfilecheck Info: File `TP2-Titanic*rapport.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 117.
  ) 
 Here is how much of TeX's memory you used:
- 9402 strings out of 494045
- 136466 string characters out of 3146367
+ 9403 strings out of 494045
+ 136479 string characters out of 3146367
  241848 words of memory out of 3000000
- 12546 multiletter control sequences out of 15000+200000
+ 12548 multiletter control sequences out of 15000+200000
  20044 words of font info for 48 fonts, out of 3000000 for 9000
  715 hyphenation exceptions out of 8191
  44i,10n,43p,1705b,373s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -880,9 +885,9 @@ iles(x86)/MiKTeX 2.9/fonts/type1/public/cm-super/sfrm1728.pfb><E:/Program Files
 (x86)/MiKTeX 2.9/fonts/type1/public/cm-super/sfss1200.pfb><E:/Program Files(x86
 )/MiKTeX 2.9/fonts/type1/public/cm-super/sfss1440.pfb><E:/Program Files(x86)/Mi
 KTeX 2.9/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on "TP2-Titanic rapport.pdf" (5 pages, 117249 bytes).
+Output written on "TP2-Titanic rapport.pdf" (5 pages, 118843 bytes).
 PDF statistics:
- 103 PDF objects out of 1000 (max. 8388607)
- 20 named destinations out of 1000 (max. 500000)
+ 102 PDF objects out of 1000 (max. 8388607)
+ 19 named destinations out of 1000 (max. 500000)
  57 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -87,13 +87,13 @@ Dans la classe \textit{Case}, classe fille de JPanel, plusieurs constructeur son
 \newline
 
 La classe \textit{Bateau} a comme attribut une direction, un naufragé et une référence vers une case contenant sa proue. La classe instantie sa propre case et sa propre proue. \textit{Proue} n'est que la tête du bateau. Selon la direction son orientation change.
+\newline
+
+Le programme utilise un enum appelé \textit{Direction}. Direction est utilise à plusieurs endroit, comme la classe Bateau, Proue et pour envoyer une commande de direction. L'enum a comme champs: "Haut", "BAS", "GAUCHE" et "DROITE" et associe chacun à un char symbolisant une flèche de la même direction en UTF-8. L'enum permet de bien représenter une direction, d'où le nom choisis.
 
 \section{Structures de données employées et justification}
 \paragraph{}
-Comme structure de donnée, le programme utilise des \textit{listes}. Contrairement aux tableaux, les listes permettent d'ajouter et de retirer des éléments pendant l'exécution du programme tout en mettant à notre disposition diverses méthodes pour manipuler son contenu. Nous utilisons cette structure pour enregistrer les joueurs de la partie, les paquets de cartes sur la table de jeu et pour chaque joueur, les paquets des adversaires.
-
-\paragraph{}
-Une liste de paquets est idéal pour les cartes sur la table, car leur nombre varie constamment au fil du jeu. Le choix d'une liste pour les joueurs est un choix personnel, un tableau aurait suffit car le nombre de joueurs ne varie pas pendant la partie. Chaque joueur a une liste d'adversaire qui est utilisé pour obtenir de l'information sur eux.
+Aucune structure de données n'a été utilisé.
 
 
 
