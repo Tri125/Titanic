@@ -86,6 +86,7 @@ public class EcranJeu extends JFrame {
 		plateauJeu = new Plateau(6,6, tabJeu);
 		this.add(plateauJeu);
 		this.validate();
+		plateauJeu.requestFocus();
 		
 	}
 	
